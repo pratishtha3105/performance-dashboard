@@ -31,41 +31,58 @@ function DashboardContent() {
   });
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
-      <h1 style={{ marginBottom: '1rem' }}>📊 Real-Time Dashboard</h1>
+    <div style={{ padding: 'clamp(1.5rem, 5vw, 2.5rem)', maxWidth: '1600px', margin: '0 auto' }}>
+      {/* Hero Section */}
+      <div style={{ marginBottom: '2rem', animation: 'slideInDown 0.6s ease-out' }}>
+        <h1 style={{ marginBottom: '0.5rem' }}>📊 Real-Time Data Dashboard</h1>
+        <p style={{ color: '#cbd5e1', fontSize: '1rem', margin: 0 }}>
+          Monitor 5,000+ data points at 60 FPS with interactive visualizations
+        </p>
+      </div>
 
-      {/* Controls */}
-      <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      {/* Controls Section */}
+      <div
+        style={{
+          marginBottom: '2rem',
+          display: 'flex',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          animation: 'slideInDown 0.7s ease-out',
+        }}
+      >
         <button
           onClick={() => setStreamEnabled(!streamEnabled)}
           style={{
             padding: '0.75rem 1.5rem',
-            backgroundColor: streamEnabled ? '#10b981' : '#ef4444',
-            color: 'white',
-            border: 'none',
+            background: streamEnabled
+              ? 'linear-gradient(135deg, #10b981, #059669)'
+              : 'linear-gradient(135deg, #ef4444, #dc2626)',
+            color: '#f0f9ff',
             borderRadius: '0.5rem',
-            cursor: 'pointer',
             fontSize: '1rem',
             fontWeight: 'bold',
+            boxShadow: streamEnabled
+              ? '0 4px 20px rgba(16, 185, 129, 0.3)'
+              : '0 4px 20px rgba(239, 68, 68, 0.3)',
           }}
         >
           {streamEnabled ? '⏸️ Stop' : '▶️ Start'} Stream
         </button>
 
         <button
-          onClick={() => {
-            console.log('Show Table button clicked! Current showTable:', showTable);
-            setShowTable(!showTable);
-          }}
+          onClick={() => setShowTable(!showTable)}
           style={{
             padding: '0.75rem 1.5rem',
-            backgroundColor: showTable ? '#3b82f6' : '#9ca3af',
-            color: 'white',
-            border: 'none',
+            background: showTable
+              ? 'linear-gradient(135deg, #3b82f6, #2563eb)'
+              : 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+            color: '#f0f9ff',
             borderRadius: '0.5rem',
-            cursor: 'pointer',
             fontSize: '1rem',
             fontWeight: 'bold',
+            boxShadow: showTable
+              ? '0 4px 20px rgba(59, 130, 246, 0.3)'
+              : '0 4px 20px rgba(139, 92, 246, 0.3)',
           }}
         >
           {showTable ? '📊 Hide' : '📋 Show'} Table
@@ -73,24 +90,120 @@ function DashboardContent() {
       </div>
 
       {/* Performance Metrics */}
-      <PerformanceMonitor metrics={metrics} dataPointCount={data.length} isStreaming={streamEnabled} />
-
-      {/* Charts Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-        gap: '1.5rem',
-        marginBottom: '2rem',
-      }}>
-        <LineChart title="📈 Line Chart" width={400} height={300} color="#3b82f6" />
-        <BarChart title="📊 Bar Chart" width={400} height={300} color="#10b981" aggregationPeriod={60000} />
-        <ScatterPlot title="🔵 Scatter Plot" width={400} height={300} color="#f59e0b" />
-        <Heatmap title="🔥 Heatmap" width={400} height={300} cellSize={8} />
+      <div style={{ marginBottom: '2rem', animation: 'slideInDown 0.8s ease-out' }}>
+        <PerformanceMonitor metrics={metrics} dataPointCount={data.length} isStreaming={streamEnabled} />
       </div>
 
-      {/* Data Table - CONDITIONAL RENDER */}
-      {showTable === true && (
-        <div style={{ marginTop: '2rem' }}>
+      {/* Charts Grid */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '2rem',
+          animation: 'fadeIn 1s ease-out',
+        }}
+      >
+        {/* Line Chart Card */}
+        <div
+          style={{
+            background: 'rgba(15, 23, 42, 0.6)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '0.75rem',
+            padding: '1.5rem',
+            border: '1px solid rgba(71, 85, 105, 0.3)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+            el.style.boxShadow = '0 10px 30px rgba(59, 130, 246, 0.15)';
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(71, 85, 105, 0.3)';
+            el.style.boxShadow = 'none';
+          }}
+        >
+          <LineChart title="📈 Line Chart" width={380} height={280} color="#3b82f6" />
+        </div>
+
+        {/* Bar Chart Card */}
+        <div
+          style={{
+            background: 'rgba(15, 23, 42, 0.6)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '0.75rem',
+            padding: '1.5rem',
+            border: '1px solid rgba(71, 85, 105, 0.3)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+            el.style.boxShadow = '0 10px 30px rgba(16, 185, 129, 0.15)';
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(71, 85, 105, 0.3)';
+            el.style.boxShadow = 'none';
+          }}
+        >
+          <BarChart title="📊 Bar Chart" width={380} height={280} color="#10b981" aggregationPeriod={60000} />
+        </div>
+
+        {/* Scatter Plot Card */}
+        <div
+          style={{
+            background: 'rgba(15, 23, 42, 0.6)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '0.75rem',
+            padding: '1.5rem',
+            border: '1px solid rgba(71, 85, 105, 0.3)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(245, 158, 11, 0.5)';
+            el.style.boxShadow = '0 10px 30px rgba(245, 158, 11, 0.15)';
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(71, 85, 105, 0.3)';
+            el.style.boxShadow = 'none';
+          }}
+        >
+          <ScatterPlot title="🔵 Scatter Plot" width={380} height={280} color="#f59e0b" />
+        </div>
+
+        {/* Heatmap Card */}
+        <div
+          style={{
+            background: 'rgba(15, 23, 42, 0.6)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '0.75rem',
+            padding: '1.5rem',
+            border: '1px solid rgba(71, 85, 105, 0.3)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(236, 72, 153, 0.5)';
+            el.style.boxShadow = '0 10px 30px rgba(236, 72, 153, 0.15)';
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = 'rgba(71, 85, 105, 0.3)';
+            el.style.boxShadow = 'none';
+          }}
+        >
+          <Heatmap title="🔥 Heatmap" width={380} height={280} cellSize={8} />
+        </div>
+      </div>
+
+      {/* Data Table */}
+      {showTable && (
+        <div style={{ animation: 'slideInDown 0.5s ease-out' }}>
           <DataTable data={data} />
         </div>
       )}
@@ -121,7 +234,25 @@ export default function DashboardPage() {
   }, []);
 
   if (loading) {
-    return <div style={{ padding: '2rem' }}>⏳ Loading...</div>;
+    return (
+      <div
+        style={{
+          padding: '2rem',
+          textAlign: 'center',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem', animation: 'slideInDown 0.6s ease-out' }}>⏳</div>
+          <p style={{ fontSize: '1.125rem', color: '#cbd5e1', animation: 'slideInDown 0.8s ease-out' }}>
+            Loading initial data...
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
