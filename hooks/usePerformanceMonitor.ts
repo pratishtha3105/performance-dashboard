@@ -6,13 +6,10 @@ import type { PerformanceMetrics } from '@/lib/types';
 
 interface UsePerformanceMonitorOptions {
   enabled?: boolean;
-  updateInterval?: number; // milliseconds (default: 1000ms)
+  updateInterval?: number;
   onMetricsUpdate?: (metrics: PerformanceMetrics) => void;
 }
 
-/**
- * Hook to monitor FPS, memory usage, and render performance
- */
 export function usePerformanceMonitor({
   enabled = true,
   updateInterval = 1000,
@@ -25,24 +22,30 @@ export function usePerformanceMonitor({
     dataProcessingTime: 0,
   });
 
-  const fpsCounterRef = useRef(new FPSCounter());
+  const fpsCounterRef = useRef<FPSCounter | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const updateIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const lastRenderTimeRef = useRef(performance.now());
 
-  // Update FPS on every frame
+  // Initialize FPS counter
+  useEffect(() => {
+    if (!fpsCounterRef.current) {
+      try {
+        fpsCounterRef.current = new FPSCounter();
+      } catch (error) {
+        console.error('Failed to create FPSCounter:', error);
+      }
+    }
+  }, []);
+
+  // Update frame count
   const updateFrame = useCallback(() => {
-    const now = performance.now();
-    const fps = fpsCounterRef.current.update();
-    const renderTime = now - lastRenderTimeRef.current;
-    lastRenderTimeRef.current = now;
-
-    if (enabled) {
+    if (fpsCounterRef.current && enabled) {
+      fpsCounterRef.current.update();
       animationFrameRef.current = requestAnimationFrame(updateFrame);
     }
   }, [enabled]);
 
-  // Update metrics display periodically
+  // Setup animation loop and metrics update
   useEffect(() => {
     if (!enabled) {
       if (animationFrameRef.current) {
@@ -54,20 +57,24 @@ export function usePerformanceMonitor({
       return;
     }
 
-    // Start FPS counting
-    animationFrameRef.current = requestAnimationFrame(updateFrame);
+    // Start frame counting
+    if (fpsCounterRef.current) {
+      animationFrameRef.current = requestAnimationFrame(updateFrame);
+    }
 
-    // Update metrics display
+    // Update metrics display every second
     updateIntervalRef.current = setInterval(() => {
-      const newMetrics: PerformanceMetrics = {
-        fps: fpsCounterRef.current.getFPS(),
-        memoryUsage: getMemoryUsage(),
-        renderTime: 0, // Could be tracked more precisely
-        dataProcessingTime: 0, // Could be tracked more precisely
-      };
+      if (fpsCounterRef.current) {
+        const newMetrics: PerformanceMetrics = {
+          fps: fpsCounterRef.current.getFPS(),
+          memoryUsage: getMemoryUsage(),
+          renderTime: 0,
+          dataProcessingTime: 0,
+        };
 
-      setMetrics(newMetrics);
-      onMetricsUpdate?.(newMetrics);
+        setMetrics(newMetrics);
+        onMetricsUpdate?.(newMetrics);
+      }
     }, updateInterval);
 
     return () => {
