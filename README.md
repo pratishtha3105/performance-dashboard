@@ -1,10 +1,12 @@
-[# Performance Dashboard
+# Performance Dashboard
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-blue?style=for-the-badge&logo=vercel)](https://performance-dashboard-rh37qlxtm.vercel.app)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-blue?style=for-the-badge&logo=vercel)](https://performance-dashboard-jefws7cpt.vercel.app/)
 
 A high-performance real-time data visualization dashboard built with **Next.js 14+**, **React 18**, and **TypeScript**.
 
-**🔗 Live Demo:** [https://performance-dashboard-rh37qlxtm.vercel.app/dashboard](https://performance-dashboard-rh37qlxtm.vercel.app/dashboard)](https://performance-dashboard-jefws7cpt.vercel.app/)
+**🔗 Live Demo:** [https://performance-dashboard-jefws7cpt.vercel.app/](https://performance-dashboard-jefws7cpt.vercel.app/)
+
+**📊 Dashboard:** [https://performance-dashboard-jefws7cpt.vercel.app/dashboard](https://performance-dashboard-jefws7cpt.vercel.app/dashboard)
 
 ## 🎯 Features
 
