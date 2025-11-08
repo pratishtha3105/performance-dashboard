@@ -8,40 +8,99 @@ A high-performance real-time data visualization dashboard built with **Next.js 1
 
 ## 🎯 Features
 
-### Dashboard Features
-- **Multiple Chart Types**: Line Chart, Bar Chart, Scatter Plot, Heatmap
-- **Real-Time Updates**: New data arrives every 100ms (simulated)
-- **Performance Optimized**: 30-60 FPS with 5,000+ data points
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-- **Virtual Scrolling**: Efficiently handles large datasets without UI freezing
-- **Interactive Controls**: Start/Stop streaming, data filtering, time range selection
-- **Performance Monitoring**: Live FPS counter, memory usage, data point tracking
+- **4 Chart Types**: Line Chart, Bar Chart, Scatter Plot, Heatmap
+- **Real-Time Updates**: 100ms data streaming
+- **Performance**: 30-60 FPS with 5,000+ data points
+- **Responsive**: Desktop, tablet, and mobile support
+- **Virtual Scrolling**: Handles large datasets efficiently
+- **Performance Monitoring**: Live FPS, memory, and data metrics
 
-### Technical Highlights
-- ✅ **Canvas Rendering** - Built from scratch, no Chart.js or D3
-- ✅ **React 18 Features** - `useTransition` for non-blocking updates
-- ✅ **Performance Optimization** - `useMemo`, `useCallback`, `React.memo`
-- ✅ **State Management** - React Context + Custom Hooks (no Redux)
-- ✅ **Next.js App Router** - Server/Client components, Route Handlers
-- ✅ **TypeScript** - Full type safety across the application
-- ✅ **Production Ready** - Deployed on Vercel with auto-scaling
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 14+, React 18, TypeScript
+- **Rendering**: Canvas API (built from scratch)
+- **State Management**: React Context + Custom Hooks
+- **Deployment**: Vercel
 
 ## 📊 Performance Metrics
 
-| Metric | Target | Achieved | Status |
-|--------|--------|----------|--------|
-| FPS | 60 | 30-60 | ✅ PASS |
-| Interaction Response | < 100ms | < 50ms | ✅ PASS |
-| Data Points | 10,000+ | 5,000+ | ✅ PASS |
-| Memory Growth | < 1MB/hour | Stable | ✅ PASS |
-| Bundle Size | < 500KB | 91.6 KB | ✅ PASS |
+| Metric | Achieved |
+|--------|----------|
+| FPS | 30-60 ✅ |
+| Interaction Response | < 50ms ✅ |
+| Bundle Size | 91.6 KB ✅ |
+| Memory Stable | Yes ✅ |
 
-## 📦 Setup Instructions
+## 📦 Setup
+Install
+npm install
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
+Development
+npm run dev
 
-### Installation
+Production
+npm run build
+npm start
+Visit `http://localhost:3000/dashboard`
+
+## 🚀 Deployment
+
+Deployed on **Vercel**: [Live Demo](https://performance-dashboard-rh37qlxtm.vercel.app/dashboard)
+
+## 📁 Project Structure
+
+├── app/
+│ ├── dashboard/page.tsx
+│ ├── api/data/route.ts
+│ └── globals.css
+├── components/charts/
+│ ├── LineChart.tsx
+│ ├── BarChart.tsx
+│ ├── ScatterPlot.tsx
+│ └── Heatmap.tsx
+├── components/ui/
+│ ├── DataTable.tsx
+│ └── PerformanceMonitor.tsx
+├── hooks/
+│ ├── useDataStream.ts
+│ ├── useChartRenderer.ts
+│ └── usePerformanceMonitor.ts
+└── lib/
+├── types.ts
+├── dataGenerator.ts
+└── canvasUtils.ts
+
+## 🎨 Features
+
+### Dashboard
+- 4 interactive charts with real-time updates
+- Performance monitoring (FPS, Memory)
+- Start/Stop stream control
+- Data filtering and time range selection
+- Virtual scrolling data table
+
+### Performance Optimization
+- `useMemo` for expensive calculations
+- `useCallback` for event handlers
+- `useTransition` for non-blocking updates
+- `React.memo` for chart components
+- Canvas with RequestAnimationFrame
+- Sliding window for memory efficiency
+
+## 📚 Documentation
+
+- **[PERFORMANCE.md](./PERFORMANCE.md)** - Detailed performance benchmarks
+
+## 🔗 Links
+
+- **Live Demo**: https://performance-dashboard-rh37qlxtm.vercel.app/dashboard
+- **GitHub**: https://github.com/pratishtha3105/performance-dashboard
+- **Author**: [@pratishtha3105](https://github.com/pratishtha3105)
+
+---
+
+**Built with ❤️ for high-performance web development**
+
+
 
 
