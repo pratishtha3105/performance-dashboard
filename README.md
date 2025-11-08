@@ -95,7 +95,6 @@ Deployed on **Vercel**: [Live Demo](https://performance-dashboard-rh37qlxtm.verc
 
 - **Live Demo**: https://performance-dashboard-rh37qlxtm.vercel.app/dashboard
 - **GitHub**: https://github.com/pratishtha3105/performance-dashboard
-- **Author**: [@pratishtha3105](https://github.com/pratishtha3105)
 
 ---
 
